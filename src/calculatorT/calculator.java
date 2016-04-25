@@ -67,9 +67,9 @@ public class calculator extends Application {
 							
 						}
 						
-						double num=Integer.parseInt(s1);
-						num*=(num);
-						display=s2+=num;
+						double num1=Integer.parseInt(s1);
+						num1*=(num1);
+						display=s2+=num1;
 						monitor.setText(display);
 						}
 					  	break;
@@ -93,9 +93,9 @@ public class calculator extends Application {
 							
 						}
 						
-						double num=Integer.parseInt(s1);
-						num=Math.sqrt(num);
-						display=s2+=num;
+						double num1=Integer.parseInt(s1);
+						num1=Math.sqrt(num1);
+						display=s2+=num1;
 						monitor.setText(display);
 						}
 						break;
@@ -133,9 +133,9 @@ public class calculator extends Application {
 						
 					}
 					
-					double num=Integer.parseInt(s1);
-					num/=100;
-					display=s2+=num;
+					double num1=Integer.parseInt(s1);
+					num1/=100;
+					display=s2+=num1;
 					monitor.setText(display);
 							monitor.setText(display);
 						}
@@ -161,9 +161,9 @@ public class calculator extends Application {
 						
 					}
 					
-					int num=Integer.parseInt(s1);
+					int num1=Integer.parseInt(s1);
 					int f=1;
-					for(int i=num;i>0;i--)
+					for(int i=num1;i>0;i--)
 						f*=i;
 					display=s2+=f;
 					monitor.setText(display);
