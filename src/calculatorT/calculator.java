@@ -1,8 +1,5 @@
 package calculatorT;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -27,29 +24,8 @@ public class calculator extends Application {
 	private String display;
 	private Infix calculation=new Infix();
 	
-
-	public static void storyInhistory(String expre )throws IOException
-	{
-		java.io.File file =new java.io.File("history.txt");
-		 java.io.PrintWriter output = new java.io.PrintWriter(file);
-		 
-		output.println(expre);
-		 output.close();
-		
-	}
-	public static String histo() throws IOException
-	{
-		String expre=null;
-		java.io.File f1=new java.io.File("history.txt");
-		Scanner input=new Scanner(f1);
-		while(input.hasNext())
-		{
-			expre=input.next();
-		}
-		input.close();
-		
-		return expre;
-	}
+	
+	
 	public void btclickedNum(ActionEvent e)
 	{
 		display=monitor.getText();
@@ -74,20 +50,53 @@ public class calculator extends Application {
 					 	break;
 					 
 			case "X²":	if(s.length()>0)
+						{ String s1="";
+						 String s2="";
+							
+						for(int i=0;i<s.length();i++)
 						{
-							num=Double.parseDouble(monitor.getText());
-						  	num=(double)Math.pow(num, 2);
-						  	display=""+num;
-						  	monitor.setText(display);
+							if(s.charAt(i)!='+'&&s.charAt(i)!='-'&&s.charAt(i)!='/'&&s.charAt(i)!='*')
+							{
+								s1+=s.charAt(i);
+							}
+							else
+							{
+								s2+=s1+s.charAt(i);
+								s1="";	
+							}
+							
+						}
+						
+						double num=Integer.parseInt(s1);
+						num*=(num);
+						display=s2+=num;
+						monitor.setText(display);
 						}
 					  	break;
 			
 			case "√":	if(s.length()>0)
 						{
-							num=Double.parseDouble(monitor.getText());
-							num=(double)Math.sqrt(num);
-							display=""+num;
-							monitor.setText(display);
+				String s1="";
+				 String s2="";
+							
+						for(int i=0;i<s.length();i++)
+						{
+							if(s.charAt(i)!='+'&&s.charAt(i)!='-'&&s.charAt(i)!='/'&&s.charAt(i)!='*')
+							{
+								s1+=s.charAt(i);
+							}
+							else
+							{
+								s2+=s1+s.charAt(i);
+								s1="";	
+							}
+							
+						}
+						
+						double num=Integer.parseInt(s1);
+						num=Math.sqrt(num);
+						display=s2+=num;
+						monitor.setText(display);
 						}
 						break;
 						
@@ -107,37 +116,59 @@ public class calculator extends Application {
 			
 			case "%":	if(s.length()>0)
 						{
-							num=Double.parseDouble(monitor.getText());
-							num/=100;
-							display=""+num;
+				
+							String s1="";
+							String s2="";
+					for(int i=0;i<s.length();i++)
+					{
+						if(s.charAt(i)!='+'&&s.charAt(i)!='-'&&s.charAt(i)!='/'&&s.charAt(i)!='*')
+						{
+							s1+=s.charAt(i);
+						}
+						else
+						{
+							s2+=s1+s.charAt(i);
+							s1="";	
+						}
+						
+					}
+					
+					double num=Integer.parseInt(s1);
+					num/=100;
+					display=s2+=num;
+					monitor.setText(display);
 							monitor.setText(display);
 						}
 						break;
 						
 			case "X!":	if(s.length()>0)
-			{
-				String m = null;
-				for(int i=0;i<s.length();i++)
-				{
-					if(s.charAt(i)!='.')
-							{
-						m=""+s.charAt(i);
-							}
-					if(s.charAt(i)=='.')
+						{
+				String s1="";
+				 String s2="";
+				
+					
+					for(int i=0;i<s.length();i++)
+					{
+						if(s.charAt(i)!='+'&&s.charAt(i)!='-'&&s.charAt(i)!='/'&&s.charAt(i)!='*')
+						{
+							s1+=s.charAt(i);
+						}
+						else
+						{
+							s2+=s1+s.charAt(i);
+							s1="";	
+						}
+						
+					}
+					
+					int num=Integer.parseInt(s1);
+					int f=1;
+					for(int i=num;i>0;i--)
+						f*=i;
+					display=s2+=f;
+					monitor.setText(display);
+						}
 						break;
-				}
-			monitor.setText(m);
-			{
-				int f=1;
-				number=Integer.parseInt(monitor.getText());
-				for(int i=number;i>0;i--)
-					f*=i;
-				display=""+f;
-				f=Integer.parseInt(display);
-				monitor.setText(display);
-			}
-			}
-			break;
 			
 			case "←":	if(s.length()>0)
 						{
@@ -228,13 +259,7 @@ public class calculator extends Application {
 						btdott=0;
 						break;
 						
-			case "=":display= monitor.getText();
-			try {
-				storyInhistory(display);
-			} catch (IOException e1) {
-				
-				e1.printStackTrace();
-			}
+			case "=":	display= monitor.getText();
 						if(display.length()>0)
 						{
 							double result=calculation.infix(display);
@@ -255,15 +280,6 @@ public class calculator extends Application {
 							bracketsCounter++;
 						}
 						break;
-			case "↑":
-							monitor.clear();
-			try {
-				monitor.setText(histo());
-			} catch (IOException e1) {
-			
-				e1.printStackTrace();
-			}
-							break;
 			
 			case ")":	if(bracketsCounter>0)
 						{
@@ -275,8 +291,6 @@ public class calculator extends Application {
 						}
 						break;
 			
-				
-		
 			default:	monitor.setText("Invalid Operation");
 						break;
 		}
@@ -395,13 +409,9 @@ public class calculator extends Application {
 		panebt.add(btplus, 3, 4);
 		btplus.setOnAction(e->btOpclicked(e));
 		
-		
 		Button bteq=new Button("=");
-		bteq.setMinHeight(40);
-		bteq.setMinWidth(265);
-		bteq.setMaxHeight(40);
-		bteq.setMaxWidth(265);
-		bteq.setPrefSize(265, 40);
+		btInfo(bteq);
+		panebt.add(bteq, 4, 4);
 		bteq.setOnAction(e->btOpclicked(e));
 		
 		
@@ -444,14 +454,9 @@ public class calculator extends Application {
 		btfact.setOnAction(e->btOpclicked(e));
 		
 		
-		Button hist=new Button("↑");
-		btInfo(hist);
-		panebt.add(hist,4, 4);
-		hist.setOnAction(e->btOpclicked(e));
 		
-		
-		VBox Vbox=new VBox(pane,panebt,bteq);
-		Scene scene=new Scene(Vbox,265,280);
+		VBox Vbox=new VBox(pane,panebt);
+		Scene scene=new Scene(Vbox,265,230);
 		stage.setTitle("Casio");
 		stage.setScene(scene);
 		stage.show();
